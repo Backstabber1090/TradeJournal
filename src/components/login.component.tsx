@@ -55,21 +55,26 @@ export default class Login extends Component<Props, State> {
       loading: true
     })
 
-    AuthService.login(username, password).then(
-      () => {
-        this.setState({
-          redirect: "/profile"
-        })
-      },
-      error => {
-        const resMessage = (error.response && error.response.data && error.response.data.message) || error.message || error.toString()
+    AuthService.login(username, password)
+      .then(
+        () => {
+          console.log("Success")
+          this.setState({
+            redirect: "/profile"
+          })
+        },
+        error => {
+          const resMessage = (error.response && error.response.data && error.response.data.message) || error.message || error.toString()
 
-        this.setState({
-          loading: false,
-          message: resMessage
-        })
-      }
-    )
+          this.setState({
+            loading: false,
+            message: resMessage
+          })
+        }
+      )
+      .catch(e => {
+        console.log(e)
+      })
   }
 
   render() {
